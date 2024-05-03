@@ -42,7 +42,9 @@ public class ServerSocketChannelTest {
                     if (key.isAcceptable()) {
                         SocketChannel clientChannel = serverSocket.accept();
                         clientChannel.configureBlocking(false);
-                        // Set TCP_NODELAY option
+
+                        // See https://medium.com/@hnasr/this-may-improve-your-backend-tcp-responses-latency-5f25ebe53fc0
+                        // Causes the kernel to send whatever it has in the send buffer even if it's a few bytes.
                         clientChannel.setOption(StandardSocketOptions.TCP_NODELAY, true);
 
                         clientChannel.register(selector, SelectionKey.OP_READ);
