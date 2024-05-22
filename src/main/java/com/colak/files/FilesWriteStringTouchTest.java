@@ -25,6 +25,7 @@ class FilesWriteStringTouchTest {
 
     private static void touch(Path path, String content) throws IOException {
         // Same as Files.writeString(path, content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        // Same as FileChannel.open(file.toPath(), StandardOpenOption.WRITE).truncate(0).close();
         Files.writeString(path, content, StandardCharsets.UTF_8);
     }
 }
