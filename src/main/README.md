@@ -1,4 +1,12 @@
-Process Large File  
+# Channel
+There are several types of channels, each designed for a specific purpose. These include:
+
+- FileChannel: used for reading and writing files
+- SocketChannel: used for TCP network communication
+- ServerSocketChannel: used for accepting incoming TCP connections
+- DatagramChannel: used for UDP network communication
+
+# Process Large File  
 1. Use Parallel Stream
 ```java
 public void consumeFile() throws IOException {
