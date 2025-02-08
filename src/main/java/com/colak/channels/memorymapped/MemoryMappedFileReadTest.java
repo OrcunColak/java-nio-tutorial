@@ -1,4 +1,4 @@
-package com.colak.channels.filechannel;
+package com.colak.channels.memorymapped;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
