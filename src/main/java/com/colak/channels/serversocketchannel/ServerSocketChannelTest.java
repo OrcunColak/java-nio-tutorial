@@ -53,8 +53,8 @@ public class ServerSocketChannelTest {
                     } else if (key.isReadable()) {
                         SocketChannel clientChannel = (SocketChannel) key.channel();
 
-                        int read = clientChannel.read(readBuffer);
-                        if (read == -1) {
+                        int bytesRead = clientChannel.read(readBuffer);
+                        if (bytesRead == -1) {
                             // Client closed the connection
                             key.cancel();
                             log.info("Client disconnected: {}", clientChannel.getRemoteAddress());
@@ -62,13 +62,13 @@ public class ServerSocketChannelTest {
                         } else {
                             readBuffer.flip();
 
-                            String string = new String(readBuffer.array(), 0, readBuffer.remaining());
-                            log.info("Received: {}", string);
+                            String message = new String(readBuffer.array(), 0, readBuffer.remaining());
+                            log.info("Received: {}", message);
                             readBuffer.clear();
 
-                            String ack = "Received:" + string;
-                            ByteBuffer ackBuffer = ByteBuffer.wrap(ack.getBytes());
-                            clientChannel.write(ackBuffer);
+                            String echo = "Received:" + message;
+                            ByteBuffer echoBuffer = ByteBuffer.wrap(echo.getBytes());
+                            clientChannel.write(echoBuffer);
                         }
                     }
                 }
