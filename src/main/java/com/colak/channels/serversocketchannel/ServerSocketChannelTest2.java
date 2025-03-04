@@ -11,13 +11,14 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Iterator;
 
 
 // See https://medium.com/@lfoster49203/advanced-java-i-o-delving-deep-into-nio-nio2-asynchronous-channels-and-sockets-87c291441ce7
 
 @Slf4j
 @UtilityClass
-public class ServerSocketChannelTest {
+public class ServerSocketChannelTest2 {
 
     public static void main() {
 
@@ -38,7 +39,13 @@ public class ServerSocketChannelTest {
                 }
 
                 // iterate over the selected keys
-                for (SelectionKey selectionKey : selector.selectedKeys()) {
+                Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
+                while (keyIterator.hasNext()) {
+                    SelectionKey selectionKey = keyIterator.next();
+
+                    // Necessary to prevent re-processing in the same loop
+                    keyIterator.remove();
+
                     if (selectionKey.isAcceptable()) {
                         acceptServerSocket(serverSocket, selector);
 
@@ -46,9 +53,6 @@ public class ServerSocketChannelTest {
                         readSelectionKey(selectionKey, readBuffer);
                     }
                 }
-                // Instead of using an iterator we are using for loop.
-                // So clear the selected keys
-                selector.selectedKeys().clear();
             }
         } catch (IOException exception) {
             log.error("Exception : ", exception);
@@ -89,6 +93,4 @@ public class ServerSocketChannelTest {
             clientChannel.write(echoBuffer);
         }
     }
-
-
 }
