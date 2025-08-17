@@ -1,4 +1,4 @@
-package com.colak.channels.filechannel;
+package com.colak.channels.asynchronousfilechannel;
 
 import lombok.extern.slf4j.Slf4j;
 
