@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @UtilityClass
@@ -23,7 +21,6 @@ public class MemoryMappedFileReadTest {
 
             // Create a memory-mapped buffer that maps the first FILE_SIZE bytes of the file
             MappedByteBuffer buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
-            readAll(buffer);
 
             buffer.rewind();
 
@@ -51,10 +48,5 @@ public class MemoryMappedFileReadTest {
         if (!line.isEmpty()) {
             log.info(line.toString());
         }
-    }
-
-    private static void readAll(MappedByteBuffer buffer) {
-        CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer);
-        log.info(charBuffer.toString());
     }
 }

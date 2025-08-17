@@ -1,14 +1,14 @@
-package com.colak.channels.filechannel;
+package com.colak.channels.filechannel.bytebufferexamples;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 @Slf4j
-public class FileChannelScatterReadTest {
+public class FileChannelScatterWriteTest {
 
     public static void main(String[] args) {
 
@@ -18,10 +18,9 @@ public class FileChannelScatterReadTest {
         ByteBuffer[] buffers = {header, body, footer};
 
 
-        try (FileInputStream fileInputStream = new FileInputStream("example.txt");
-             FileChannel channel = fileInputStream.getChannel();) {
-
-            channel.read(buffers);
+        try (FileOutputStream fileOutputStream = new FileOutputStream("example.txt");
+             FileChannel channel = fileOutputStream.getChannel()) {
+            channel.write(buffers);
 
         } catch (IOException exception) {
             log.error("Exception : ", exception);

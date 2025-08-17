@@ -19,8 +19,6 @@ public class MemoryMappedFileReadTest2 {
             long fileSize = fileChannel.size();
             MappedByteBuffer buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileSize);
 
-            // You'd parse lines from this buffer manually or with a custom method
-            // This is lower-level but can be extremely fast in some cases
             readAll(buffer);
         }
     }
